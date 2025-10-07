@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAT Document Upload Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Homepage -->
+        <div id="homepage" class="page active">
+            <div class="hero-section">
+                <h1>MAT Document Upload Portal</h1>
+                <p class="hero-description">
+                    Welcome to MAT's secure document upload system. Submit your documents and provide necessary details 
+                    through our streamlined three-step process. All submissions will be sent to atozclientmail@gmail.com 
+                    for processing.
+                </p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Personal Information</h3>
+                        <p>Provide your contact details and organizational information</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Technical Details</h3>
+                        <p>Specify project requirements, priorities, and technical specifications</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>File Upload</h3>
+                        <p>Upload PDF documents and other files with drag-and-drop support</p>
+                    </div>
+                </div>
+                <div class="portal-info">
+                    <p class="portal-owner">Portal managed by: <strong>MAT</strong></p>
+                    <p class="contact-email">Submissions sent to: <strong>atozclientmail@gmail.com</strong></p>
+                </div>
+                <button class="btn btn--primary btn--lg" onclick="startProcess()">
+                    Start Upload Process
+                </button>
+            </div>
+        </div>
+
+        <!-- Multi-Step Form -->
+        <div id="form-container" class="page">
+            <!-- Progress Indicator -->
+            <div class="progress-container">
+                <div class="progress-steps">
+                    <div class="step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Personal Details</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Technical Details</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-label">File Upload</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Step 1: Personal Details -->
+            <div id="step1" class="form-step active">
+                <div class="step-header">
+                    <h2>Personal Details</h2>
+                    <p>Please provide your contact information and organizational details. Default values have been pre-filled but can be edited if needed.</p>
+                </div>
+                
+                <form id="personal-form" class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" class="form-control" value="MAT" required>
+                        <div class="error-message" id="name-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" class="form-control" value="atozclientmail@gmail.com" required>
+                        <div class="error-message" id="email-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="organization">Organization/Company</label>
+                        <input type="text" id="organization" name="organization" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="department">Department/Position</label>
+                        <input type="text" id="department" name="department" class="form-control">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label" for="address">Address</label>
+                        <textarea id="address" name="address" class="form-control" rows="3"></textarea>
+                    </div>
+                </form>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn--outline" onclick="goToHomepage()">Back to Home</button>
+                    <button type="button" class="btn btn--primary" onclick="nextStep(1)">Next Step</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Technical Details -->
+            <div id="step2" class="form-step">
+                <div class="step-header">
+                    <h2>Technical Details</h2>
+                    <p>Provide technical specifications and project requirements.</p>
+                </div>
+                
+                <form id="technical-form" class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="projectType">Project Type/Category *</label>
+                        <input type="text" id="projectType" name="projectType" class="form-control" required>
+                        <div class="error-message" id="projectType-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="priority">Priority Level *</label>
+                        <select id="priority" name="priority" class="form-control" required>
+                            <option value="">Select Priority</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                            <option value="Critical">Critical</option>
+                        </select>
+                        <div class="error-message" id="priority-error"></div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label" for="specifications">Technical Specifications *</label>
+                        <textarea id="specifications" name="specifications" class="form-control" rows="4" required></textarea>
+                        <div class="error-message" id="specifications-error"></div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label" for="requirements">Requirements Description *</label>
+                        <textarea id="requirements" name="requirements" class="form-control" rows="4" required></textarea>
+                        <div class="error-message" id="requirements-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="deadline">Deadline/Timeline</label>
+                        <input type="date" id="deadline" name="deadline" class="form-control">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label" for="notes">Additional Notes</label>
+                        <textarea id="notes" name="notes" class="form-control" rows="3"></textarea>
+                    </div>
+                </form>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn--outline" onclick="prevStep(2)">Previous Step</button>
+                    <button type="button" class="btn btn--primary" onclick="nextStep(2)">Next Step</button>
+                </div>
+            </div>
+
+            <!-- Step 3: File Upload -->
+            <div id="step3" class="form-step">
+                <div class="step-header">
+                    <h2>File Upload</h2>
+                    <p>Upload your PDF documents and other required files.</p>
+                </div>
+                
+                <div class="file-upload-section">
+                    <div class="file-info">
+                        <p><strong>Supported file types:</strong> PDF, DOC, DOCX, TXT, JPG, PNG, ZIP</p>
+                        <p><strong>Maximum file size:</strong> 10MB per file</p>
+                    </div>
+                    
+                    <div class="file-drop-zone" id="dropZone">
+                        <div class="drop-zone-content">
+                            <div class="upload-icon">📁</div>
+                            <h3>Drag and drop files here</h3>
+                            <p>or</p>
+                            <button type="button" class="btn btn--primary" id="chooseFilesBtn">
+                                Choose Files
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.txt,.jpg,.png,.zip" hidden>
+                    
+                    <div id="uploadedFiles" class="uploaded-files"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn--outline" onclick="prevStep(3)">Previous Step</button>
+                    <button type="button" class="btn btn--primary" onclick="showSummary()">Review Submission</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Review -->
+        <div id="summary-page" class="page">
+            <div class="summary-container">
+                <h2>Review Your Submission</h2>
+                <p>Please review all information before submitting. Documents will be sent to <strong>atozclientmail@gmail.com</strong> for processing.</p>
+                
+                <div class="summary-sections">
+                    <div class="summary-section">
+                        <h3>Personal Details</h3>
+                        <div id="personal-summary"></div>
+                        <button type="button" class="btn btn--sm btn--outline" onclick="editSection(1)">Edit</button>
+                    </div>
+                    
+                    <div class="summary-section">
+                        <h3>Technical Details</h3>
+                        <div id="technical-summary"></div>
+                        <button type="button" class="btn btn--sm btn--outline" onclick="editSection(2)">Edit</button>
+                    </div>
+                    
+                    <div class="summary-section">
+                        <h3>Uploaded Files</h3>
+                        <div id="files-summary"></div>
+                        <button type="button" class="btn btn--sm btn--outline" onclick="editSection(3)">Edit</button>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn--outline" onclick="backToUpload()">Back to Upload</button>
+                    <button type="button" class="btn btn--primary" onclick="showConfirmation()">Submit Application</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div id="confirmModal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Confirm Submission</h3>
+                <p>Are you sure you want to submit your application? An email will be sent to <strong>atozclientmail@gmail.com</strong> with all the details.</p>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn--outline" onclick="hideConfirmation()">Cancel</button>
+                    <button type="button" class="btn btn--primary" onclick="submitForm()">Yes, Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Page -->
+        <div id="success-page" class="page">
+            <div class="success-container">
+                <div class="success-icon">✅</div>
+                <h2>Submission Successful!</h2>
+                <p>Your application has been submitted successfully to MAT's document portal. An email notification has been sent to <strong>atozclientmail@gmail.com</strong>.</p>
+                
+                <div class="email-preview">
+                    <h3>Email Preview - Sent to atozclientmail@gmail.com</h3>
+                    <div id="emailPreview" class="email-content"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn--primary" onclick="startNewSubmission()">Start New Submission</button>
+                    <button type="button" class="btn btn--outline" onclick="downloadSummary()">Download Summary</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loading-spinner"></div>
+            <p>Processing your submission...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
